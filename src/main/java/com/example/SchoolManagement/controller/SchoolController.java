@@ -7,43 +7,47 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/ School")
-
+@RequestMapping("/school")
 public class SchoolController {
+
     private final SchoolService schoolService;
 
-
-    public SchoolController(final SchoolService schoolService) {
+    public SchoolController(SchoolService schoolService) {
         this.schoolService = schoolService;
     }
 
-    @PostMapping()
+    @PostMapping("/create")
     public School createSchool(@RequestBody final School school) {
         return this.schoolService.createSchool(school);
     }
 
-    @GetMapping("fetch/{id}")
+    @GetMapping("/retrieve/{id}")
     public School getSchoolById(@PathVariable final Long id) {
         return this.schoolService.getSchoolById(id);
     }
 
-    @GetMapping("")
-    public List<School> getDepartment() {
+    @GetMapping("/retrieve")
+    public List<School> getSchool() {
         return this.schoolService.getSchool();
     }
 
     @PutMapping("/update/{id}")
-    public School updateSchoolById(@PathVariable final Long id,@RequestBody final School school){
-        return this.schoolService . updateSchoolId(school,id);
+    public School updateSchoolById(@PathVariable final Long id, @RequestBody final School school) {
+        return (School) (School) this.schoolService.updateSchoolId(school, id);
     }
 
-
-
+//    @DeleteMapping("/delete/{id}")
+//    public void deleteSchoolById(@PathVariable("id") final Long id){
+//        this.schoolService.deleteSchoolById(id);
+//    }
     @DeleteMapping("/delete/{id}")
-    public void deleteSchoolById(@PathVariable("id") final Long id){
-        this.schoolService.deleteSchoolById(id);
+    public String deleteSchoolById(@PathVariable("id") final Long id) {
+        return this .schoolService.deleteSchoolById(id);
     }
+
+
 }
+
 
 
 
