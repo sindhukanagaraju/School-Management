@@ -32,9 +32,14 @@ public class SchoolController {
     }
 
     @PutMapping("/update/{id}")
-    public School updateSchoolById(@PathVariable final Long id, @RequestBody final School school) {
-        return (School) (School) this.schoolService.updateSchoolId(school, id);
+    public Object updateSchoolById(@PathVariable final Long id, @RequestBody final School school) {
+        return (School) this.schoolService.updateSchoolId(id, school);
     }
+//    @PutMapping("/update/{id}")
+//     public School updateSchool(@PathVariable Long id, @RequestBody School school) {
+//    School updatedSchool = schoolService.updateSchool(id, school);
+//    return ResponseEntity.ok(updatedSchool);
+//}
 
 //    @DeleteMapping("/delete/{id}")
 //    public void deleteSchoolById(@PathVariable("id") final Long id){

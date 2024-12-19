@@ -30,10 +30,32 @@ public class SchoolService {
         return this.schoolRepository.findAll();
     }
 
-    public School updateSchoolId(final School school, final Long id) {
-        school.setId(id);
-        return this.schoolRepository.save(school);
+//    public School updateSchoolId(final School school, final Long id) {
+//        school.setId(id);
+//        return this.schoolRepository.save(school);
+//    }
+
+    public Object updateSchoolId(Long id, School school) {
+        Optional<School> optionalExistingSchool = schoolRepository.findById(id);
+
+        if (optionalExistingSchool.isPresent()) {
+            School existingSchool = optionalExistingSchool.get();
+
+            // Update only the fields that are provided in the request
+            if (school.getName() != null && !school.getName().isEmpty()) {
+                existingSchool.setName(school.getName());
+            }
+            if (school.getAddress() != null && !school.getAddress().isEmpty()) {
+                existingSchool.setAddress(school.getAddress());
+            }
+
+            return schoolRepository.save(existingSchool);
+        } else {
+            return "School with ID " + id + " not found";
+
+        }
     }
+
 //    public void deleteSchoolById(final Long  id)
 //    {
 //        this.schoolRepository.deleteById (id);
