@@ -1,5 +1,6 @@
 package com.example.SchoolManagement.service;
 
+import com.example.SchoolManagement.entity.Department;
 import com.example.SchoolManagement.entity.School;
 import com.example.SchoolManagement.repository.SchoolRepository;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,13 @@ public class SchoolService {
 
     public List<School> getSchool() {
         return this.schoolRepository.findAll();
+
+    }
+
+    public List<School> retrieveByName(final String name) {
+//        System.err.println(studentsRepository.findAll());
+        return this.schoolRepository.retrieveByName(name);
+//        return this.studentsRepository.findByNameNative(name);
     }
 
 //    public School updateSchoolId(final School school, final Long id) {
@@ -35,13 +43,13 @@ public class SchoolService {
 //        return this.schoolRepository.save(school);
 //    }
 
-    public Object updateSchoolId(Long id, School school) {
+    public School updateSchoolId(Long id, School school) {
         Optional<School> optionalExistingSchool = schoolRepository.findById(id);
 
         if (optionalExistingSchool.isPresent()) {
             School existingSchool = optionalExistingSchool.get();
 
-            // Update only the fields that are provided in the request
+
             if (school.getName() != null && !school.getName().isEmpty()) {
                 existingSchool.setName(school.getName());
             }
@@ -51,9 +59,10 @@ public class SchoolService {
 
             return schoolRepository.save(existingSchool);
         } else {
-            return "School with ID " + id + " not found";
+            throw new RuntimeException("School not Found  in Id : "+id);
 
         }
+
     }
 
 //    public void deleteSchoolById(final Long  id)
@@ -71,4 +80,3 @@ public class SchoolService {
         }
     }
 }
-

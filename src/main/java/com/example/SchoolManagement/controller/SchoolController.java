@@ -31,9 +31,15 @@ public class SchoolController {
         return this.schoolService.getSchool();
     }
 
+    @GetMapping("/retrieve-name")
+    public List<School> retrieveStudent(final String name) {
+        System.err.println(name);
+        return this.schoolService.retrieveByName(name);
+    }
+    
     @PutMapping("/update/{id}")
-    public Object updateSchoolById(@PathVariable final Long id, @RequestBody final School school) {
-        return (School) this.schoolService.updateSchoolId(id, school);
+    public School updateSchoolById(@PathVariable final Long id, @RequestBody final School school) {
+        return this.schoolService.updateSchoolId(id, school);
     }
 //    @PutMapping("/update/{id}")
 //     public School updateSchool(@PathVariable Long id, @RequestBody School school) {
